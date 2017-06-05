@@ -1,0 +1,40 @@
+D:\Bot App1\Bot App1\bin\Bot Application.dll.config
+D:\Bot App1\Bot App1\bin\Bot Application.dll
+D:\Bot App1\Bot App1\bin\Bot Application.pdb
+D:\Bot App1\Bot App1\bin\Autofac.dll
+D:\Bot App1\Bot App1\bin\Chronic.dll
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Builder.Autofac.dll
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Builder.dll
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Connector.dll
+D:\Bot App1\Bot App1\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+D:\Bot App1\Bot App1\bin\Microsoft.Rest.ClientRuntime.dll
+D:\Bot App1\Bot App1\bin\Microsoft.WindowsAzure.Configuration.dll
+D:\Bot App1\Bot App1\bin\Newtonsoft.Json.dll
+D:\Bot App1\Bot App1\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\Bot App1\Bot App1\bin\System.Net.Http.Formatting.dll
+D:\Bot App1\Bot App1\bin\System.Web.Http.dll
+D:\Bot App1\Bot App1\bin\System.Web.Http.WebHost.dll
+D:\Bot App1\Bot App1\bin\Autofac.xml
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Builder.xml
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Builder.Autofac.xml
+D:\Bot App1\Bot App1\bin\Microsoft.Bot.Connector.xml
+D:\Bot App1\Bot App1\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+D:\Bot App1\Bot App1\bin\Microsoft.WindowsAzure.Configuration.xml
+D:\Bot App1\Bot App1\bin\Newtonsoft.Json.xml
+D:\Bot App1\Bot App1\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\Bot App1\Bot App1\bin\System.Net.Http.Formatting.xml
+D:\Bot App1\Bot App1\bin\System.Web.Http.xml
+D:\Bot App1\Bot App1\bin\System.Web.Http.WebHost.xml
+D:\Bot App1\Bot App1\bin\ar\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\cs\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\de-dE\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\en\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\es\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\fa\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\fr\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\ja\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\ru\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+D:\Bot App1\Bot App1\obj\Release\Bot App1.csprojResolveAssemblyReference.cache
+D:\Bot App1\Bot App1\obj\Release\Bot Application.dll
+D:\Bot App1\Bot App1\obj\Release\Bot Application.pdb

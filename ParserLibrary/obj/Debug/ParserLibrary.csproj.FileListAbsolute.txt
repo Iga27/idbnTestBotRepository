@@ -1,0 +1,8 @@
+D:\Bot App1\ParserLibrary\bin\Debug\ParserLibrary.dll
+D:\Bot App1\ParserLibrary\bin\Debug\ParserLibrary.pdb
+D:\Bot App1\ParserLibrary\bin\Debug\HtmlAgilityPack.dll
+D:\Bot App1\ParserLibrary\bin\Debug\HtmlAgilityPack.pdb
+D:\Bot App1\ParserLibrary\bin\Debug\HtmlAgilityPack.xml
+D:\Bot App1\ParserLibrary\obj\Debug\ParserLibrary.csprojResolveAssemblyReference.cache
+D:\Bot App1\ParserLibrary\obj\Debug\ParserLibrary.dll
+D:\Bot App1\ParserLibrary\obj\Debug\ParserLibrary.pdb
