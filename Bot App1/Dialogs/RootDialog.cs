@@ -4,6 +4,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using ParserLibrary;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bot_App1.Dialogs
 {
@@ -25,7 +26,7 @@ namespace Bot_App1.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            await context.PostAsync("hi from bot.input region");
+            await context.PostAsync("hi from bot. enter the region");
 
             context.Wait(RegionReceivedAsync);
         }
@@ -50,16 +51,20 @@ namespace Bot_App1.Dialogs
 
             ShowHeroCard(reply);
 
+            if(reply.Attachments.Count!=0)
             await context.PostAsync(reply);
+            else
+            await context.PostAsync("ничего не найдено");
+
             context.Wait(MessageReceivedAsync);
 
         }
 
-        private static async void ShowHeroCard(IMessageActivity reply)
+        private static  void ShowHeroCard(IMessageActivity reply)
         {
-            var parser = new Parser();
-            var flats = parser.GetInfo(quantity, region);
-
+            var parser = new Parser(region,quantity);
+            var flats = parser.GetInfo();
+           
             var array = new CardAction[] { new CardAction() { } };
             
               foreach (var f in flats)
@@ -68,9 +73,9 @@ namespace Bot_App1.Dialogs
 
                 var cardActions = new CardAction[] {new CardAction()
                 {
-                    Value = null,
+                    Value = f.Link,
                     Type = "openUrl",
-                    Title = "link"
+                    Title = "перейти"
                 }};
     
                  var card = new HeroCard()
@@ -80,8 +85,9 @@ namespace Bot_App1.Dialogs
                      Images =cardImages,
                      Buttons=cardActions
                  };
-                 var plAttachment = card.ToAttachment();
-                 reply.Attachments.Add(plAttachment);
+
+                 var cardAttachment = card.ToAttachment();
+                 reply.Attachments.Add(cardAttachment);
              }
         }
 
