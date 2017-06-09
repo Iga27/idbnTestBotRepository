@@ -12,24 +12,15 @@ namespace ParserLibrary
 {
     public class Parser
     {
-
-        HtmlWeb web;
-
         public string Url { get; set; }
 
-        public Parser()
+        public Parser(string region)
         {
-            web = new HtmlWeb();
+            Url = $"https://realt.by/{region}-region/sale/flats/search/"; 
+            //delete it and move to property
         }
 
-        public Parser(string region,int quantity)
-        {
-            web = new HtmlWeb();
-            //Url = $"https://realt.by/{region}-region/sale/flats/{quantity}k/";
-
-        }
-
-        public  IEnumerable<FlatData>  GetInfo()  
+        public  IEnumerable<FlatData>  GetInfo(string town)  
         {
             // var doc = web.Load(Url);
 
@@ -40,36 +31,18 @@ namespace ParserLibrary
              doc.LoadHtml(page);*/
 
 
-            string url = "https://realt.by/brest-region/sale/flats/search/";
-           /* var formData = new NameValueCollection();
-            formData["tx_uedbflat_pi2[DATA][state_district_id][e]"] = "85";
-            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = "6262";
+            var formData = new NameValueCollection();
+            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = town;
             formData["tx_uedbflat_pi2[DATA][x_count_pictures][ge]"] = "1";
+    
 
             var client = new WebClient();
-            var responseBytes = client.UploadValues(url, "POST", formData);
+            var responseBytes = client.UploadValues(Url, "POST", formData);
             var page = Encoding.UTF8.GetString(responseBytes);
             HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(page);*/
+            doc.LoadHtml(page);
 
-
-            var doc=web.Load(url);
-            var dictionary = new Dictionary<string, string>();
-
-            //var selectNode = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search-left-right").FirstOrDefault().FirstChild;
-            //dictionary.Add(x.InnerText,x.Attributes["value"].Value));
-
-            var selectNode = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search")
-                .FirstOrDefault().Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search-left-right").Skip(1)
-                .FirstOrDefault().ChildNodes.Skip(1).FirstOrDefault();
-            var result=selectNode.ChildNodes.Where(x=>x.Name=="option").Skip(1).Select(x => new { Name = x.NextSibling.InnerText, Value = x.Attributes["value"].Value });
-
-            foreach (var r in result)
-                dictionary.Add(r.Name,r.Value);
-
-
-
-             var nodes = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value=="bd-item ").Take(10);
+            var nodes = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value=="bd-item ").Take(10);
              return nodes.Select(node => new FlatData
              {
                  ImageSrc = node.Descendants("img").FirstOrDefault().Attributes["data-original"].Value,

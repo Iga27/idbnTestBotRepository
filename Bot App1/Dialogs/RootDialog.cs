@@ -12,23 +12,19 @@ namespace Bot_App1.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        private static TownCodeLoader townLoader;
 
         private static string region;
 
-        private static int quantity;
+        //private static int quantity;
+
+        private static string town;
 
         public Task StartAsync(IDialogContext context)
         {
-            context.Wait(MessageReceivedAsync);
+            context.Wait(RegionReceivedAsync);
 
             return Task.CompletedTask;
-        }
-
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
-        {
-            await context.PostAsync("hi from bot. enter the region");
-
-            context.Wait(RegionReceivedAsync);
         }
 
         private async Task RegionReceivedAsync(IDialogContext context, IAwaitable<object> result)
@@ -37,14 +33,32 @@ namespace Bot_App1.Dialogs
 
             region = activity.Text;
 
-            await context.PostAsync("number or rooms?");
-            context.Wait(FinalReceivedAsync);
+           // if()  /////////////////////////////////////
+            townLoader = new TownCodeLoader(region);
+            townLoader.LoadTowns();
+
+            await context.PostAsync("Введите город");
+
+            context.Wait(TownReceivedAsync);
         }
 
-        public async Task FinalReceivedAsync(IDialogContext context, IAwaitable<object> result)
+       /* private async Task TownReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
-            quantity = int.Parse(activity.Text);
+
+            town = activity.Text;
+
+            await context.PostAsync("Количество комнат?");
+            context.Wait(RoomsReceivedAsync);
+        }*/
+
+        public async Task TownReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        {
+            //var activity = await result as Activity;
+            //quantity = int.Parse(activity.Text);
+            var activity = await result as Activity;
+
+            town = activity.Text;
 
             var reply = context.MakeMessage();
             reply.Attachments = new List<Attachment>();
@@ -56,14 +70,15 @@ namespace Bot_App1.Dialogs
             else
             await context.PostAsync("ничего не найдено");
 
-            context.Wait(MessageReceivedAsync);
+            await context.PostAsync("Введите город");
+            context.Wait(TownReceivedAsync);
 
         }
 
         private static  void ShowHeroCard(IMessageActivity reply)
         {
-            var parser = new Parser(region,quantity);
-            var flats = parser.GetInfo();
+            var parser = new Parser(region);
+            var flats = parser.GetInfo(townLoader.Dictionary[town]);
            
             var array = new CardAction[] { new CardAction() { } };
             
