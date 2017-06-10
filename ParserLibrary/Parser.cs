@@ -12,13 +12,9 @@ namespace ParserLibrary
 {
     public class Parser
     {
-        public string Url { get; set; }
+        public string Url { get; set; }= "https://realt.by/sale/flats/search/";
 
-        public Parser(string region)
-        {
-            Url = $"https://realt.by/{region}-region/sale/flats/search/"; 
-            //delete it and move to property
-        }
+        
 
         public  IEnumerable<FlatData>  GetInfo(string town)  
         {

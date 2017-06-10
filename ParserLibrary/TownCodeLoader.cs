@@ -16,17 +16,15 @@ namespace ParserLibrary
         public string Url { get; set; }
 
 
-        public TownCodeLoader(string region)
+        public TownCodeLoader()
         {
             web = new HtmlWeb();
-            Url = $"https://realt.by/{region}-region/sale/flats/search/";
+            Url = $"https://realt.by/sale/flats/search/";
             Dictionary = new Dictionary<string,string>();
         }
 
-        public bool LoadTowns()
+        public void LoadTowns()
         {
-            try
-            {
                 var doc = web.Load(Url);
 
                 var selectNode = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search")
@@ -36,12 +34,6 @@ namespace ParserLibrary
 
                 foreach (var x in townAndCodes)
                     Dictionary.Add(x.Name, x.Value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
     }
