@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using Bot_App1.FormFlow;
+using Microsoft.Bot.Builder.FormFlow;
 
 namespace Bot_App1
 {
@@ -19,6 +21,7 @@ namespace Bot_App1
             if (activity.Type == ActivityTypes.Message)
             {
                 await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                //await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Parameters.BuildEnquiryForm)); });
             }
             else
             {

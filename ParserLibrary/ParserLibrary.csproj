@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlatData.cs" />
+    <Compile Include="FlatParameters.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TownCodeLoader.cs" />
   </ItemGroup>
   <ItemGroup>

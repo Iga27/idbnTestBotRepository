@@ -7,36 +7,37 @@ using HtmlAgilityPack;
 using System.Net;
 using System.ComponentModel;
 using System.Collections.Specialized;
+ 
 
 namespace ParserLibrary
 {
     public class Parser
     {
-        public string Url { get; set; }= "https://realt.by/sale/flats/search/";
+        ISettings settings;
+        WebClient client;
 
-        
-
-        public  IEnumerable<FlatData>  GetInfo(string town)  
+        public Parser(ISettings settings)
         {
-            // var doc = web.Load(Url);
+            this.settings = settings;
+            client = new WebClient();
+        }
 
-            /* var client = new WebClient();
-             var data = client.DownloadData(Url);
-             var page=System.Text.Encoding.UTF8.GetString(data);
-             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-             doc.LoadHtml(page);*/
-
-
+        public string Load()  //,string quantity  Parameters parameters
+        {
             var formData = new NameValueCollection();
-            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = town;
-            formData["tx_uedbflat_pi2[DATA][x_count_pictures][ge]"] = "1";
-    
+            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = "791";
+            formData["tx_uedbflat_pi2[DATA][x_count_pictures][ge]"] = "1"; //with foto
+            formData["tx_uedbflat_pi2[DATA][rooms][e][1]"] = "3";
+            formData["tx_uedbflat_pi2[DATA][building_year][ge]"] = "2010";
+            formData["tx_uedbflat_pi2[DATA][building_year][le]"] = "2017";
+            var responseBytes = client.UploadValues(settings.Url, "POST", formData);
+            return Encoding.UTF8.GetString(responseBytes);
+        }
 
-            var client = new WebClient();
-            var responseBytes = client.UploadValues(Url, "POST", formData);
-            var page = Encoding.UTF8.GetString(responseBytes);
+        public IEnumerable<FlatData> Parse(string text)  
+        {
             HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(page);
+            doc.LoadHtml(text);
 
             var nodes = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value=="bd-item ").Take(10);
              return nodes.Select(node => new FlatData

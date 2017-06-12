@@ -5,6 +5,8 @@ using Microsoft.Bot.Connector;
 using ParserLibrary;
 using System.Collections.Generic;
 using System.Linq;
+using Bot_App1.FormFlow;
+using Microsoft.Bot.Builder.FormFlow;
 
 namespace Bot_App1.Dialogs
 {
@@ -12,13 +14,16 @@ namespace Bot_App1.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        private static TownCodeLoader townLoader;
-
-        private static string town;
+        static TownCodeLoader townLoader;
+        //static string town;
+        public static ISettings Settings { get; set; }
+        static FlatParameters parameters; //static?
 
         public Task StartAsync(IDialogContext context)
         {
-            townLoader = new TownCodeLoader();
+            parameters = new FlatParameters();
+            Settings = new Settings("https://realt.by/sale/flats/search/");
+            townLoader = new TownCodeLoader(Settings);
             townLoader.LoadTowns();
             context.Wait(MessageReceivedAsync);
 
@@ -28,7 +33,6 @@ namespace Bot_App1.Dialogs
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
-
             var message = activity.Text;
           
             await context.PostAsync("Введите город");
@@ -40,7 +44,8 @@ namespace Bot_App1.Dialogs
         {
             var activity = await result as Activity;
 
-            town = activity.Text;
+            //town = activity.Text;
+            parameters.TownCode = townLoader.CodeDictionary[activity.Text];
 
             var reply = context.MakeMessage();
             reply.Attachments = new List<Attachment>();
@@ -61,8 +66,10 @@ namespace Bot_App1.Dialogs
         {
             try
             {
-                var parser = new Parser();
-                var flats = parser.GetInfo(townLoader.Dictionary[town]);
+                var parser = new Parser(Settings);
+                //string text=parser.Load(townLoader.CodeDictionary[flatParameters.Town]);
+                string text = parser.Load( ); //parameters
+                var flats = parser.Parse(text);
 
                 var array = new CardAction[] { new CardAction() { } };
                
