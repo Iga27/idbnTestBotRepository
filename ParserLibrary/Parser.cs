@@ -22,14 +22,14 @@ namespace ParserLibrary
             client = new WebClient();
         }
 
-        public string Load()  //,string quantity  Parameters parameters
+        public string Load(string town,string quantity,string start,string end)  //,string quantity  Parameters parameters
         {
             var formData = new NameValueCollection();
-            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = "791";
+            formData["tx_uedbflat_pi2[DATA][town_id][e]"] = town;
             formData["tx_uedbflat_pi2[DATA][x_count_pictures][ge]"] = "1"; //with foto
-            formData["tx_uedbflat_pi2[DATA][rooms][e][1]"] = "3";
-            formData["tx_uedbflat_pi2[DATA][building_year][ge]"] = "2010";
-            formData["tx_uedbflat_pi2[DATA][building_year][le]"] = "2017";
+            formData["tx_uedbflat_pi2[DATA][rooms][e][1]"] = quantity;
+            formData["tx_uedbflat_pi2[DATA][building_year][ge]"] = start;
+            formData["tx_uedbflat_pi2[DATA][building_year][le]"] = end;
             var responseBytes = client.UploadValues(settings.Url, "POST", formData);
             return Encoding.UTF8.GetString(responseBytes);
         }

@@ -55,12 +55,10 @@ D:\BotApp1\Bot App1\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
 D:\BotApp1\Bot App1\bin\Microsoft.Rest.ClientRuntime.dll
 D:\BotApp1\Bot App1\bin\Microsoft.WindowsAzure.Configuration.dll
 D:\BotApp1\Bot App1\bin\Newtonsoft.Json.dll
-D:\BotApp1\Bot App1\bin\ParserLibrary.dll
 D:\BotApp1\Bot App1\bin\System.IdentityModel.Tokens.Jwt.dll
 D:\BotApp1\Bot App1\bin\System.Net.Http.Formatting.dll
 D:\BotApp1\Bot App1\bin\System.Web.Http.dll
 D:\BotApp1\Bot App1\bin\System.Web.Http.WebHost.dll
-D:\BotApp1\Bot App1\bin\ParserLibrary.pdb
 D:\BotApp1\Bot App1\bin\Autofac.xml
 D:\BotApp1\Bot App1\bin\Microsoft.Bot.Builder.xml
 D:\BotApp1\Bot App1\bin\Microsoft.Bot.Builder.Autofac.xml

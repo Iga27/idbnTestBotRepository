@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using ParserLibrary;
+using Bot_App1.Service;
 using System.Collections.Generic;
 using System.Linq;
 using Bot_App1.FormFlow;
@@ -14,33 +14,45 @@ namespace Bot_App1.Dialogs
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        Parameters formParameters;
         static TownCodeLoader townLoader;
-        //static string town;
-        public static ISettings Settings { get; set; }
-        static FlatParameters parameters; //static?
+        public static ISettings SettingsProperty { get; set; }
 
-        public Task StartAsync(IDialogContext context)
+        static RootDialog()
         {
-            parameters = new FlatParameters();
-            Settings = new Settings("https://realt.by/sale/flats/search/");
-            townLoader = new TownCodeLoader(Settings);
+            SettingsProperty = new Settings("https://realt.by/sale/flats/search/");
+            townLoader = new TownCodeLoader(SettingsProperty);
             townLoader.LoadTowns();
-            context.Wait(MessageReceivedAsync);
+        }
 
+        public RootDialog(Parameters formParameters)
+        {
+            this.formParameters = formParameters;
+        }
+
+
+        public Task StartAsync(IDialogContext context)  
+        {
+            context.Wait(MessageReceivedAsync);
             return Task.CompletedTask;
         }
 
-        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            var activity = await result as Activity;
-            var message = activity.Text;
-          
-            await context.PostAsync("Введите город");
+            var reply = context.MakeMessage();
+            reply.Attachments = new List<Attachment>();
 
-            context.Wait(TownReceivedAsync);
-        }
+            var isCorrect = ShowHeroCard(reply);
 
-        public async Task TownReceivedAsync(IDialogContext context, IAwaitable<object> result)
+            if (reply.Attachments.Count != 0 && isCorrect)
+                await context.PostAsync(reply);
+            else
+                await context.PostAsync("ничего не найдено");
+
+            //context.Done(this);
+        } 
+
+        /*public async Task TownReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
 
@@ -60,15 +72,15 @@ namespace Bot_App1.Dialogs
             await context.PostAsync("Введите город");
             context.Wait(TownReceivedAsync);
 
-        }
+        }*/
 
-        private static bool ShowHeroCard(IMessageActivity reply)
+        private bool ShowHeroCard(IMessageActivity reply) //todo nonstatic
         {
             try
             {
-                var parser = new Parser(Settings);
-                //string text=parser.Load(townLoader.CodeDictionary[flatParameters.Town]);
-                string text = parser.Load( ); //parameters
+                var parser = new Parser(SettingsProperty);
+                formParameters.Town = townLoader.CodeDictionary[formParameters.Town];
+                string text = parser.Load(formParameters); //parameters
                 var flats = parser.Parse(text);
 
                 var array = new CardAction[] { new CardAction() { } };
