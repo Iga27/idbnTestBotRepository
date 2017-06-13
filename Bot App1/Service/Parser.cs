@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Net;
-using System.ComponentModel;
 using System.Collections.Specialized;
 using Bot_App1.FormFlow;
 
@@ -27,9 +24,10 @@ namespace Bot_App1.Service
             var formData = new NameValueCollection();
             formData["tx_uedbflat_pi2[DATA][town_id][e]"] = parameters.Town;
             formData["tx_uedbflat_pi2[DATA][x_count_pictures][ge]"] = "1"; //with foto
+            formData["tx_uedbflat_pi2[sort_by][0]"] = "date_revision"; //sort by date
             formData["tx_uedbflat_pi2[DATA][rooms][e][1]"] = parameters.Quantity;
             formData["tx_uedbflat_pi2[DATA][building_year][ge]"] = parameters.StartYear;
-            formData["tx_uedbflat_pi2[DATA][building_year][le]"] = parameters.EndYear;
+            formData["tx_uedbflat_pi2[DATA][price_m2][le]"] = parameters.Price;
             var responseBytes = client.UploadValues(settings.Url, "POST", formData);
             return Encoding.UTF8.GetString(responseBytes);
         }

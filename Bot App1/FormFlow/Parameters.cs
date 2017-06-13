@@ -10,30 +10,35 @@ namespace Bot_App1.FormFlow
     [Serializable]
     public class Parameters
     {
-        [Prompt("Название города")]
+        [Prompt("Введите название города")]
         public string Town { get; set; }
 
         [Prompt("Количество комнат?")]
         public string Quantity { get; set; }
 
-        [Prompt("Год постройки? От ")]
+        [Prompt("Постройка не позднее какого года?")]
         public string StartYear { get; set; }
 
-        [Prompt("До")]
-        public string EndYear { get; set; }
+        [Prompt("Цена $ за кв.м. Не дороже: ")]
+        public string Price { get; set; }
 
         public static IForm<Parameters> Build()
         {
             OnCompletionAsyncDelegate<Parameters> processOrder = async (context, state) =>
             {
-                await context.Forward(new RootDialog(state), null, state, CancellationToken.None); //call a child dialog
-                //await Conversation.SendAsync(activity, () => new RootDialog(state));
+                 await context.Forward(new RootDialog(state), onChildDialogCompleted, state, CancellationToken.None); //call a child dialog
+                 
             };
 
             return new FormBuilder<Parameters>()
                 .AddRemainingFields()
                 .OnCompletion(processOrder)
                 .Build();
+        }
+
+        private static async Task onChildDialogCompleted(IDialogContext context, IAwaitable<object> result)
+        {
+            var value = await result;
         }
 
     }

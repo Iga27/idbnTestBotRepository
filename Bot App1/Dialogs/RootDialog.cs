@@ -4,9 +4,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Bot_App1.Service;
 using System.Collections.Generic;
-using System.Linq;
 using Bot_App1.FormFlow;
-using Microsoft.Bot.Builder.FormFlow;
 
 namespace Bot_App1.Dialogs
 {
@@ -49,7 +47,7 @@ namespace Bot_App1.Dialogs
             else
                 await context.PostAsync("ничего не найдено");
 
-            //context.Done(this);
+            context.Done(this);
         } 
 
         /*public async Task TownReceivedAsync(IDialogContext context, IAwaitable<object> result)
@@ -74,29 +72,29 @@ namespace Bot_App1.Dialogs
 
         }*/
 
-        private bool ShowHeroCard(IMessageActivity reply) //todo nonstatic
+        private bool ShowHeroCard(IMessageActivity reply) 
         {
             try
             {
                 var parser = new Parser(SettingsProperty);
                 formParameters.Town = townLoader.CodeDictionary[formParameters.Town];
-                string text = parser.Load(formParameters); //parameters
+                string text = parser.Load(formParameters); 
                 var flats = parser.Parse(text);
 
                 var array = new CardAction[] { new CardAction() { } };
                
-                foreach (var f in flats)
+                foreach (var flat in flats)
                 {
                     var imageAction = new CardAction()
                     {
-                        Value = f.Link,
+                        Value = flat.Link,
                         Type = "openUrl",
                     };
-                    var cardImages = new CardImage[] { new CardImage(url: f.ImageSrc,tap:imageAction) };
+                    var cardImages = new CardImage[] { new CardImage(url: flat.ImageSrc,tap:imageAction) };
 
                     var card = new HeroCard()
                     {
-                        Title = f.Title,
+                        Title = flat.Title,
                         Images = cardImages,
                     };
 
