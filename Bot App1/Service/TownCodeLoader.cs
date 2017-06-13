@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Bot_App1.Service
 {
-    public class TownCodeLoader //add another params  
+    public class TownCodeLoader  
     {
         HtmlWeb web;
-        ISettings settings;
+        string url;
 
         public Dictionary<string, string> CodeDictionary { get; set; }
 
-        public TownCodeLoader(ISettings settings)
+        public TownCodeLoader(string url) 
         {
-            this.settings = settings;
+            this.url = url;
             web = new HtmlWeb();
             CodeDictionary = new Dictionary<string, string>();
         }
 
         public void LoadTowns()
         {
-            var doc = web.Load(settings.Url);
+            var doc = web.Load(url); 
 
             var selectNode = doc.DocumentNode.Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search")
                 .FirstOrDefault().Descendants().Where(x => x.Name == "div" && x.Attributes["class"] != null && x.Attributes["class"].Value == "some-search-left-right").Skip(1)

@@ -24,15 +24,15 @@ namespace Bot_App1.FormFlow
 
         public static IForm<Parameters> Build()
         {
-            OnCompletionAsyncDelegate<Parameters> processOrder = async (context, state) =>
+           /* OnCompletionAsyncDelegate<Parameters> processOrder = async (context, state) =>
             {
                  await context.Forward(new RootDialog(state), onChildDialogCompleted, state, CancellationToken.None); //call a child dialog
                  
-            };
+            };*/
 
             return new FormBuilder<Parameters>()
                 .AddRemainingFields()
-                .OnCompletion(processOrder)
+               // .OnCompletion(processOrder)
                 .Build();
         }
 

@@ -20,8 +20,8 @@ namespace Bot_App1
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                //await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
-                await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Parameters.Build)); });
+                await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                //await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Parameters.Build)); });
             }
             else
             {

@@ -10,16 +10,16 @@ namespace Bot_App1.Service
 {
     public class Parser
     {
-        ISettings settings;
+        string url;
         WebClient client;
 
-        public Parser(ISettings settings)
+        public Parser(string url)
         {
-            this.settings = settings;
+            this.url = url;
             client = new WebClient();
         }
 
-        public string Load(Parameters parameters)   
+        public string Load(FlatParameters parameters)   
         {
             var formData = new NameValueCollection();
             formData["tx_uedbflat_pi2[DATA][town_id][e]"] = parameters.Town;
@@ -28,7 +28,7 @@ namespace Bot_App1.Service
             formData["tx_uedbflat_pi2[DATA][rooms][e][1]"] = parameters.Quantity;
             formData["tx_uedbflat_pi2[DATA][building_year][ge]"] = parameters.StartYear;
             formData["tx_uedbflat_pi2[DATA][price_m2][le]"] = parameters.Price;
-            var responseBytes = client.UploadValues(settings.Url, "POST", formData);
+            var responseBytes = client.UploadValues(url, "POST", formData);
             return Encoding.UTF8.GetString(responseBytes);
         }
 
