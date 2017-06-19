@@ -19,9 +19,10 @@ namespace Bot_App1.Service
             this.url = url;
             web = new HtmlWeb();
             CodeDictionary = new Dictionary<string, string>();
+            
         }
 
-        public void LoadTowns()
+        public Dictionary<string, string> LoadTowns() //void
         {
             var doc = web.Load(url);
 
@@ -32,6 +33,8 @@ namespace Bot_App1.Service
 
             foreach (var x in townAndCodes)
                 CodeDictionary.Add(x.Name, x.Value);
+
+            return CodeDictionary; //
         }
 
     }

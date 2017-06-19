@@ -68,7 +68,7 @@ namespace Bot_App1.Dialogs
                 string text = parser.Load(GetAllParameters(phraseForParsing));
                 var flats = parser.Parse(text);
 
-                var array = new CardAction[] { new CardAction() { } };
+                //var array = new CardAction[] { new CardAction() { } };
 
                 foreach (var flat in flats)
                 {

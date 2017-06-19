@@ -48,3 +48,5 @@ D:\BotApp1\BotApp1.Tests\bin\Debug\ru\Microsoft.Bot.Builder.resources.dll
 D:\BotApp1\BotApp1.Tests\bin\Debug\zh-hans\Microsoft.Bot.Builder.resources.dll
 D:\BotApp1\BotApp1.Tests\obj\Debug\BotApp1.Tests.dll
 D:\BotApp1\BotApp1.Tests\obj\Debug\BotApp1.Tests.pdb
+D:\BotApp1\BotApp1.Tests\bin\Debug\BotApp1.Tests.dll.config
+D:\BotApp1\BotApp1.Tests\bin\Debug\Castle.Core.dll

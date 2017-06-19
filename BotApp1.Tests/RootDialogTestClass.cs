@@ -2,12 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bot_App1.Dialogs;
 using Bot_App1.Service;
-using System.Collections.Generic;
+ 
+ 
+
 
 namespace BotApp1.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class RootDialogTestClass
     {
 
         #region  GetAllParametersTests
@@ -53,30 +55,6 @@ namespace BotApp1.Tests
         }
 
         #endregion
-
-        #region ParseTests
-
        
-
-
-        [TestMethod]
-
-       
-
-        public void Parse_Should_Return_Right_Result()
-        {
-            var parser = new Parser("https://realt.by/sale/flats/search/");
-            var stringForParsing = parser.Load(new FlatParameters() { Town = "186", Price = "1500", StartYear = "2010", Quantity = "3" });
-            var actual=parser.Parse(stringForParsing);
-            var expected = new[] {
-                new FlatData {
-                    ImageSrc ="https://realt.by/thumb/c/180x120/e40a326f19a3da9dc03e6300514f5aec/sm/t/site1q1h8tsm/6a4e1ba4b2.jpg",
-                Link="https://realt.by/brest-region/sale/flats/object/1086648/",
-                Title=" Продается 3 комнатная квартира, Барановичи, Скорины ул., 6   "} };
-            Assert.AreEqual(expected, actual);
-        }
-
-
-        #endregion
-    }
+    }    
 }
