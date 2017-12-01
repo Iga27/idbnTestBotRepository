@@ -18,7 +18,7 @@ namespace Bot_App1.Service
 
         public string Price { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) //this overriding method we need for Assert.AreEqual(expected,actual);
         {
             FlatParameters other = (FlatParameters)obj;
             if (other == null)
